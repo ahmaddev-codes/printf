@@ -1,6 +1,6 @@
 ## Peer Project - Printf
 
-A project similar to the C programming language printf() function from the <stdio.h> header that displays texts based on specified formats (%d, %i, %f, %c, %s, %x)
+A project similar to the C programming language `printf()` function from the `<stdio.h>` header that displays texts based on specified formats `(%d, %i, %f, %c, %s, %x)`.
 
 * `_printf()` - The formatted output conversion
 * Returns the number of characters printed(excluding the null byte used to end output to strings)
@@ -16,4 +16,4 @@ A project similar to the C programming language printf() function from the <stdi
 
 #include "main.h"
 
-`int _printf(const char *format, ...);`
+int _printf(const char *format, ...);
