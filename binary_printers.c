@@ -1,13 +1,14 @@
 #include "main.h"
-#include <stdarg.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 /**
-  * print_int_binary - Prints a int converted to binary
+  * _print_int_binary - Prints a int converted to binary
   * @args: A list of variadic arguments
   *
   * Return: The number of printed digits
   */
-int print_int_binary(va_list args)
+int _print_int_binary(va_list args)
 {
 	unsigned int x = 0;
 	int b = 0, new = 0;
@@ -26,21 +27,21 @@ int print_int_binary(va_list args)
 		x = x / 2;
 		b++;
 	}
-	recursion_int_binary(new);
+	_recursion_int_binary(new);
 	return (b);
 }
 
 /**
-  * recursion_int_binary - Prints a binary
+  * _recursion_int_binary - Prints a binary
   * @a: integer to print
   *
   */
-void recursion_int_binary(int a)
+void _recursion_int_binary(int a)
 {
 	unsigned int t;
 
 	t = a;
 	if (t / 2)
-		recursion_int_binary(t / 2);
+		_recursion_int_binary(t / 2);
 	_write(t % 2 + '0');
 }
