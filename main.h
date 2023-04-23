@@ -1,31 +1,50 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-#include <stdio.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include <stdarg.h>
 
-/**
-  * struct specifiers - Struct specifiers
-  * @specifier: The conversion specifier
-  * @f: The function pointer
-  */
-typedef struct specifiers
-{
-	char *specifier;
-	int (*f)(va_list args);
-} spc_dt;
+/* utils.c */
+int _strlen(const char *);
+int print(char *);
+char *itoa(long int, int);
 
-int _write(char c);
-int _printf(const char *format, ...);
-int _print_a_char(va_list args);
-int _print_a_string(va_list args);
-int _print_format(const char *format, va_list args);
-int _print_spec(char format, va_list args);
-int _print_invalid_spec(char prev_format, char format, int count);
-int _print_a_integer(va_list args);
-void _recursion_integer(int a);
-int _print_int_binary(va_list args);
-void _recursion_int_binary(int a);
-int _validate_char(char _type);
+/* printf.c */
+int _printf(const char *, ...);
+
+/* handler.c */
+int handler(const char *, va_list);
+int percent_handler(const char *, va_list, int *);
+
+/* printers */
+int print_string(va_list);
+int print_char(va_list);
+int print_integer(va_list);
+int print_binary(va_list);
+int print_rot(va_list);
+int print_unsigned(va_list);
+int print_octal(va_list);
+int print_hexadecimal_low(va_list);
+int print_hexadecimal_upp(va_list);
+int print_pointer(va_list);
+int print_rev_string(va_list);
+
+/* _putchar.c */
+int _putchar(char);
+int buffer(char);
+
+/**
+ * struct _format - Typedef struct
+ *
+ * @type: Format
+ * @f: The function associated
+ **/
+typedef struct _format
+{
+	char type;
+	int (*f)(va_list);
+} format;
+
 
 #endif /* MAIN_H */
