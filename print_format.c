@@ -1,73 +1,76 @@
 #include "main.h"
-#include <stdarg.h>
+#include <stdlib.h>
 
 /**
-  * print_format - Prints a format
-  *
+  * _print_format - Prints a format
   * @format: The format to prints
   * @args: A list of variadic arguments
   *
   * Return: The length of the format
   */
-int print_format(const char *format, va_list args)
+int _print_format(const char *format, va_list args)
 {
-	int i = 0, count = 0;
-	
-	while (format && format[i + 1])
+	int count = 0;
+	int i = 0;
+
+	while (format && format[i])
 	{
 		if (format[i] == '%')
 		{
-			if (format[i = 1] == '\0')
+			if (format[i + 1] == '\0')
 				return (-1);
 
 			i++;
-			
+
 			while (format[i] == ' ')
-				format++;
-			
+				i++;
+
 			if (format[i] == '%')
 				count += _write(format[i]);
-			
-			if (validate_char(format[i] == 0))
-				count += print_invalid_spec(format[i - 1], format[i], count);
-			
+
+			if (_validate_char(format[i]) == 0)
+			{
+				count = _print_invalid_spec(format[i - 1], format[i], count);
+			}
 			else
-				count = print_spec(format[i], args);
+			{
+				count += _print_spec(format[i], args);
+			}
+		}
+		else
+		{
+			count += _write(format[i]);
 		}
 
-		else
-			count += _write(format[i]);
-		
 		i++;
 	}
-	
+
 	return (count);
 }
 
 /**
-  * print_spec - Prints a valid specifier
-  *
+  * _print_spec - Prints a valid specifier
   * @format: The specifier to prints
   * @args: A list of variadic arguments
   *
   * Return: The length of the specifier
   */
-int print_spec(char format, va_list args)
+int _print_spec(char format, va_list args)
 {
 	int i  = 0, length = 0;
-	spc_dt types[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"d", print_integer},
-		{"i", print_integer},
-		{"b", print_int_binary},
+	spc_dt _types[] = {
+		{"c", _print_a_char},
+		{"s", _print_a_string},
+		{"d", _print_a_integer},
+		{"i", _print_a_integer},
+		{"b", _print_int_binary},
 		{NULL, NULL}
 	};
 
-	while (types[i].specifier)
+	while (_types[i].specifier)
 	{
-		if (*types[i].specifier == format)
-			length = types[i].f(args);
+		if (*_types[i].specifier == format)
+			length = _types[i].f(args);
 
 		i++;
 	}
@@ -76,15 +79,14 @@ int print_spec(char format, va_list args)
 }
 
 /**
-  * print_invalid_spec - Prints a invalid specifier
-  *
+  * _print_invalid_spec - Prints a invalid specifier
   * @prev_format: The previous specifier of actual specifier
   * @format: The specifier to prints
   * @count: The current count before prints invalid specifiers
   *
   * Return: The current count after prints invalid specifiers
   */
-int print_invalid_spec(char prev_format, char format, int count)
+int _print_invalid_spec(char prev_format, char format, int count)
 {
 	count += _write('%');
 
@@ -93,31 +95,30 @@ int print_invalid_spec(char prev_format, char format, int count)
 		count += _write(' ');
 		count += _write(format);
 	}
-
 	else
+	{
 		count += _write(format);
+	}
 
 	return (count);
 }
 
 /**
-  * validate_char - validate the type
-  *
-  * @type: character to be comparate
+  * _validate_char - validate the type
+  * @_type: character to be comparate
   *
   * Return: 1 if char is equal to a type
   */
-int validate_char(char type)
+int _validate_char(char _type)
 {
-	char types[] = {'c', 's', 'd', 'i', 'b', '%'};
+	char _types[] = {'c', 's', 'd', 'i', 'b', '%'};
 	int i = 0;
 
-	while (types[i])
+	while (_types[i])
 	{
-		if (types[i] == type)
+		if (_types[i] == _type)
 			return (1);
 		i++;
 	}
-
 	return (0);
 }
