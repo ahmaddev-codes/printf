@@ -1,28 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "main.h"
-#include <stdarg.h>
 
 /**
- * _printf - A function that produces output
- * according to a format
+ * _printf - function my printf
+ * @format: string whit format to print
  *
- * @format: The format of output to produce
- * @...: The rest of the arguments passed
- *
- * Return: The number of characters printed
+ * Return: number of chars that print
  */
-
 int _printf(const char *format, ...)
 {
-	int length = 0;
 	va_list args;
+	int length = 0;
 
 	if (format == NULL)
 		return (-1);
 
 	va_start(args, format);
-	length = print_format(format, args);
-	
-	va_end(args);
 
+	length = _print_format(format, args);
+	va_end(args);
 	return (length);
 }
